@@ -1,0 +1,56 @@
+1. requirements.txt
+# 2. Procfile
+# 3. render.yaml
+# 4. app.py
+# 5. templates/index.html
+# 6. templates/apply.html
+# 7. templates/admin.html
+# 8. static/css/style.css
+# 9. static/js/app.js
+# 10. README.md (optional)
+#
+# NOTE: Do NOT upload these files (they're created automatically):
+# - portal.db (database)
+# - uploads/ (folder for CV files)
+# - __pycache__/ (Python cache)
+# - flask.log (log file)
+# ============================================================
+
+
+=== FILE: requirements.txt ===
+Flask==3.0.3
+Werkzeug==3.0.3
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+itsdangerous==2.2.0
+click==8.1.7
+blinker==1.8.2
+requests==2.32.3
+gunicorn==23.0.0
+=== END FILE ===
+
+
+=== FILE: Procfile ===
+web: gunicorn app:app
+=== END FILE ===
+
+
+=== FILE: render.yaml ===
+services:
+  - type: web
+    name: linguagreen-jobs
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        generateValue: true
+=== END FILE ===
+
+
+=== FILE: app.py ===
